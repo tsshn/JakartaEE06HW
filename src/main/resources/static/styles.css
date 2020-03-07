@@ -17,6 +17,12 @@ a {
     margin-top: 10px;
 }
 
+.sub-container {
+    width: 80%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
 table {
     width: 80%;
     margin-right: auto;
