@@ -12,6 +12,11 @@ a {
     color: white;
 }
 
+.field {
+    text-align: left;
+    margin-top: 10px;
+}
+
 table {
     width: 80%;
     margin-right: auto;

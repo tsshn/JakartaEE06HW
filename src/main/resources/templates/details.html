@@ -13,9 +13,11 @@
 
     <div class="title">Details</div>
 
-    <div>Title: <span th:text="${book.title}"></span></div>
-    <div>Author: <span th:text="${book.author}"></span></div>
-    <div>ISBN: <span th:text="${book.isbn}"></span></div>
+    <div style="width: 80%">
+        <div class="field">Title: <span th:text="${book.title}"></span></div>
+        <div class="field">Author: <span th:text="${book.author}"></span></div>
+        <div class="field">ISBN: <span th:text="${book.isbn}"></span></div>
+    </div>
 
     <form method="GET" action="/">
         <button id="button" type="submit">Return</button>
