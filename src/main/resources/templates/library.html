@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="../styles.css" rel="stylesheet"/>
+    <title>Library</title>
+</head>
+
+<body>
+
+<div id="container">
+
+    <div class="title">Library</div>
+
+    <table>
+
+        <thead>
+        <th>Title</th>
+        <th>Link</th>
+        </thead>
+
+        <tbody>
+        <tr th:each="book: ${library}">
+            <td th:text="${book.title}"></td>
+            <td><a th:href="book + '/' + ${book.id}">🔗</a></td>
+        </tr>
+        </tbody>
+
+    </table>
+
+    <form method="get" action="/redirectAddBook">
+        <input id="button" type="submit" value="Add new"/>
+    </form>
+
+</div>
+
+</body>
+
+</html>

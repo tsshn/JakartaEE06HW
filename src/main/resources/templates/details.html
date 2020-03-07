@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="../styles.css" rel="stylesheet"/>
+    <title>Details</title>
+</head>
+
+<body>
+
+<div id="container">
+
+    <div class="title">Details</div>
+
+    <div>Title: <span th:text="${book.title}"></span></div>
+    <div>Author: <span th:text="${book.author}"></span></div>
+    <div>ISBN: <span th:text="${book.isbn}"></span></div>
+
+    <form method="GET" action="/">
+        <button id="button" type="submit">Return</button>
+    </form>
+
+</div>
+
+</body>
+
+</html>
