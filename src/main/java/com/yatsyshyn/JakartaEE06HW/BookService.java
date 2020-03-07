@@ -56,7 +56,7 @@ public class BookService {
     @Transactional
     public List<Book> getByISBN(String isbn) {
         return entityManager.createQuery(
-                "SELECT b FROM Book b WHERE b.author = :isbn", Book.class)
+                "SELECT b FROM Book b WHERE b.isbn = :isbn", Book.class)
                 .setParameter("isbn", isbn).getResultList();
     }
 

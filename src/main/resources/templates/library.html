@@ -9,7 +9,7 @@
 
 <body>
 
-<div id="container">
+<div id="container" style="width: 400px;">
 
     <div class="title">Library</div>
 
@@ -32,6 +32,30 @@
     <form method="get" action="/redirectAddBook">
         <input id="button" type="submit" value="Add new"/>
     </form>
+
+    <div class="title">Search</div>
+
+    <div class="sub-container">
+
+        <form action="/getByTitle" method="post">
+            <div>Title<input class="search" type="text" name="title"/>
+                <button type="submit" class="button">🔍</button>
+            </div>
+        </form>
+
+        <form action="/getByAuthor" method="post">
+            <div>Author<input class="search" type="text" name="author"/>
+                <button type="submit" class="button">🔍</button>
+            </div>
+        </form>
+
+        <form action="/getByISBN" method="post">
+            <div>ISBN<input class="search" type="text" name="isbn"/>
+                <button type="submit" class="button">🔍</button>
+            </div>
+        </form>
+
+    </div>
 
 </div>
 

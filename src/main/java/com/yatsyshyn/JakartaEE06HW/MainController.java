@@ -45,4 +45,25 @@ public class MainController {
         return "redirect:/";
     }
 
+    @RequestMapping(value = "/getByTitle", method = {RequestMethod.GET, RequestMethod.POST})
+    public String getByTitle(String title, Model model) {
+        model.addAttribute("bookshelf", bookService.getByTitle(title));
+        model.addAttribute("query", "Title: " + title);
+        return "bookshelf";
+    }
+
+    @RequestMapping(value = "/getByAuthor", method = {RequestMethod.GET, RequestMethod.POST})
+    public String getByAuthor(String author, Model model) {
+        model.addAttribute("bookshelf", bookService.getByAuthor(author));
+        model.addAttribute("query", "Author: " + author);
+        return "bookshelf";
+    }
+
+    @RequestMapping(value = "/getByISBN", method = {RequestMethod.GET, RequestMethod.POST})
+    public String getByISBN(String isbn, Model model) {
+        model.addAttribute("bookshelf", bookService.getByISBN(isbn));
+        model.addAttribute("query", "ISBN: " + isbn);
+        return "bookshelf";
+    }
+
 }
