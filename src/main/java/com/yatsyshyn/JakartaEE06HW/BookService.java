@@ -4,60 +4,50 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class BookService {
 
-    private EntityManager entityManager;
-
     @Autowired
-    public BookService(EntityManager entityManager) {
-        this.entityManager = entityManager;
-    }
+    private RepositoryService repositoryService;
 
     @Transactional
-    public void add(String title, String author, String isbn) {
+    public Book add(String title, String author, String isbn) {
         Book book = new Book();
         book.setTitle(title);
         book.setAuthor(author);
         book.setIsbn(isbn);
-        entityManager.merge(book);
+        return repositoryService.saveAndFlush(book);
     }
 
     @Transactional
     public List<Book> getAll() {
-        return entityManager.createQuery("SELECT b FROM Book b", Book.class).getResultList();
+        return repositoryService.findAll();
     }
 
     @Transactional
     public Book getById(int id) {
-        return entityManager.find(Book.class, id);
+        Optional<Book> book = repositoryService.findById(id);
+        return book.orElse(null);
     }
 
     @Transactional
     public List<Book> getByTitle(String title) {
-        return entityManager.createQuery(
-                "SELECT b FROM Book b WHERE b.title = :title", Book.class)
-                .setParameter("title", title).getResultList();
+        return repositoryService.getByTitle('%' + title + '%');
     }
 
     @Transactional
     public List<Book> getByAuthor(String author) {
-        return entityManager.createQuery(
-                "SELECT b FROM Book b WHERE b.author = :author", Book.class)
-                .setParameter("author", author).getResultList();
+        return repositoryService.getByAuthor('%' + author + '%');
     }
 
     @Transactional
-    public List<Book> getByISBN(String isbn) {
-        return entityManager.createQuery(
-                "SELECT b FROM Book b WHERE b.isbn = :isbn", Book.class)
-                .setParameter("isbn", isbn).getResultList();
+    public List<Book> getByIsbn(String isbn) {
+        return repositoryService.getByIsbn('%' + isbn + '%');
     }
 
 }

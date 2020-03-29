@@ -61,7 +61,7 @@ public class MainController {
 
     @RequestMapping(value = "/getByISBN", method = {RequestMethod.GET, RequestMethod.POST})
     public String getByISBN(String isbn, Model model) {
-        model.addAttribute("bookshelf", bookService.getByISBN(isbn));
+        model.addAttribute("bookshelf", bookService.getByIsbn(isbn));
         model.addAttribute("query", "ISBN: " + isbn);
         return "bookshelf";
     }
