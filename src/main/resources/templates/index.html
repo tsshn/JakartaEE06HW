@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Library</title>
+    <link href="../styles.css" rel="stylesheet"/>
+</head>
+
+<body>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+<div id="container">
+
+    <div class="block">
+        <h2>Add Book</h2>
+        <form id="addBook">
+            <div class="center">
+                <input name="title" placeholder="Title">
+                <input name="author" placeholder="Author">
+                <input name="isbn" placeholder="Isbn">
+            </div>
+            <button type="submit">Add</button>
+        </form>
+    </div>
+
+    <div class="block">
+        <h2>Filter</h2>
+        <form id="filter">
+            <div class="center">
+                <input name="query" placeholder="Input">
+                <select name="select" placeholder="Title">
+                    <option th:value="title">Title</option>
+                    <option th:value="author">Author</option>
+                    <option th:value="isbn">ISBN</option>
+                </select>
+            </div>
+            <button type="submit">Filter</button>
+        </form>
+        <div class="center">
+            <table>
+                <thead>
+                <th>Title</th>
+                <th>Author</th>
+                <th>ISBN</th>
+                </thead>
+                <tbody id="filtered">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="block">
+        <h2>Library</h2>
+        <div class="center">
+            <table>
+                <thead>
+                <th>Title</th>
+                <th>Author</th>
+                <th>ISBN</th>
+                </thead>
+                <tbody id="library">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    $(function () {
+        $('#filter').submit(function (e) {
+            e.preventDefault();
+            let $books = $('#filtered');
+            $books.empty();
+            $.ajax({
+                type: 'POST',
+                url: '/filter',
+                dataType: 'json',
+                data: JSON.stringify({
+                    input: $(this).find('[name=query]').val(),
+                    property: $(this).find('[name=select]').val()
+                }),
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Content-Type', 'application/json')
+                },
+                success: function (response) {
+                    for (let book of response.books)
+                        $books.append(`<tr><td>${book.title}</td><td>${book.author}</td>\<td>${book.author}</td></tr>`);
+                }
+            });
+        });
+
+        $('#addBook').submit(function (e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '/add',
+                dataType: 'json',
+                data: JSON.stringify({
+                    title: $(this).find('[name=title]').val(),
+                    author: $(this).find('[name=author]').val(),
+                    isbn: $(this).find('[name=isbn]').val()
+                }),
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Content-Type', 'application/json')
+                },
+                success: function (response) {
+                    $('#addResponse').text('');
+                    let $books = $('#library');
+                    $books.empty();
+                    $.ajax({
+                        url: '/get',
+                        success: function (response) {
+                            for (let book of response.books)
+                                $books.append(`<tr><td>${book.title}</td><td>${book.author}</td>\<td>${book.author}</td></tr>`);
+                        }
+                    });
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+
+</html>
