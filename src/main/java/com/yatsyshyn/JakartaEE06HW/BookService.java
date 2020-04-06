@@ -16,12 +16,12 @@ public class BookService {
     private RepositoryService repositoryService;
 
     @Transactional
-    public Book add(String title, String author, String isbn) {
+    public void add(String title, String author, String isbn) {
         Book book = new Book();
         book.setTitle(title);
         book.setAuthor(author);
         book.setIsbn(isbn);
-        return repositoryService.saveAndFlush(book);
+        repositoryService.saveAndFlush(book);
     }
 
     @Transactional
