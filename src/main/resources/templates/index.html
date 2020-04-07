@@ -64,7 +64,7 @@
                 </tbody>
             </table>
         </div>
-        <button id="update" style="margin-top: 20px;">Update</button>
+        <button id="update">Update</button>
     </div>
 
 </div>
@@ -102,7 +102,7 @@
                 },
                 success: function (response) {
                     for (let book of response.books)
-                        $books.append(`<tr><td>${book.title}</td><td>${book.author}</td>\<td>${book.author}</td></tr>`);
+                        $books.append(`<tr><td>${book.title}</td><td>${book.author}</td>\<td>${book.isbn}</td></tr>`);
                 }
             });
         });

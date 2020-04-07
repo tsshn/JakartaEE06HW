@@ -77,6 +77,10 @@ input:focus {
     outline: none;
 }
 
+#update {
+    margin-top: 20px;
+}
+
 button {
     margin-top: 10px;
     text-align: initial;
