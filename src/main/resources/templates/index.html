@@ -64,12 +64,27 @@
                 </tbody>
             </table>
         </div>
+        <button id="update" style="margin-top: 20px;">Update</button>
     </div>
 
 </div>
 
 <script>
     $(function () {
+
+        $('#update').click(function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: '/get',
+                success: function (response) {
+                    let $books = $('#library');
+                    $books.empty();
+                    for (let book of response.books)
+                        $books.append(`<tr><td>${book.title}</td><td>${book.author}</td>\<td>${book.isbn}</td></tr>`);
+                }
+            });
+        });
+
         $('#filter').submit(function (e) {
             e.preventDefault();
             let $books = $('#filtered');
@@ -107,16 +122,10 @@
                     xhr.setRequestHeader('Content-Type', 'application/json')
                 },
                 success: function (response) {
-                    $('#addResponse').text('');
                     let $books = $('#library');
                     $books.empty();
-                    $.ajax({
-                        url: '/get',
-                        success: function (response) {
-                            for (let book of response.books)
-                                $books.append(`<tr><td>${book.title}</td><td>${book.author}</td>\<td>${book.author}</td></tr>`);
-                        }
-                    });
+                    for (let book of response.books)
+                        $books.append(`<tr><td>${book.title}</td><td>${book.author}</td>\<td>${book.isbn}</td></tr>`);
                 }
             });
         });
